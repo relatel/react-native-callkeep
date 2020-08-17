@@ -83,7 +83,7 @@ class RNCallKeep {
       return;
     }
 
-    RNCallKeepModule.displayIncomingCall(uuid, handle, handleType, hasVideo, localizedCallerName);
+    return RNCallKeepModule.displayIncomingCall(uuid, handle, handleType, hasVideo, localizedCallerName);
   };
 
   answerIncomingCall = (uuid) => {
@@ -98,7 +98,7 @@ class RNCallKeep {
       return;
     }
 
-    RNCallKeepModule.startCall(uuid, handle, contactIdentifier, handleType, hasVideo);
+    return RNCallKeepModule.startCall(uuid, handle, contactIdentifier, handleType, hasVideo);
   };
 
   reportConnectingOutgoingCallWithUUID = (uuid) => {
@@ -131,9 +131,13 @@ class RNCallKeep {
 
   isCallActive = async(uuid) => await RNCallKeepModule.isCallActive(uuid);
 
-  endCall = (uuid) => RNCallKeepModule.endCall(uuid);
+  endCall = (uuid) => {
+    return RNCallKeepModule.endCall(uuid);
+  }
 
-  endAllCalls = () => RNCallKeepModule.endAllCalls();
+  endAllCalls = () => {
+    return RNCallKeepModule.endAllCalls();
+  }
 
   supportConnectionService = () => supportConnectionService;
 
@@ -144,10 +148,12 @@ class RNCallKeep {
     isIOS ? null : await RNCallKeepModule.hasOutgoingCall();
 
   setMutedCall = (uuid, shouldMute) => {
-    RNCallKeepModule.setMutedCall(uuid, shouldMute);
+    return RNCallKeepModule.setMutedCall(uuid, shouldMute);
   };
 
-  sendDTMF = (uuid, key) => RNCallKeepModule.sendDTMF(uuid, key);
+  sendDTMF = (uuid, key) => {
+    return RNCallKeepModule.sendDTMF(uuid, key);
+  }
 
   checkIfBusy = () =>
     isIOS
@@ -178,7 +184,9 @@ class RNCallKeep {
 
   updateDisplay = (uuid, displayName, handle) => RNCallKeepModule.updateDisplay(uuid, displayName, handle);
 
-  setOnHold = (uuid, shouldHold) => RNCallKeepModule.setOnHold(uuid, shouldHold);
+  setOnHold = (uuid, shouldHold) => {
+    return RNCallKeepModule.setOnHold(uuid, shouldHold);
+  }
 
   setReachable = () => RNCallKeepModule.setReachable();
 

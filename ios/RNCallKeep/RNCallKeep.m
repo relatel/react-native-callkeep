@@ -233,7 +233,7 @@ RCT_EXPORT_METHOD(endAllCalls resolver:(RCTPromiseResolveBlock)resolve rejecter:
     }
 }
 
-RCT_EXPORT_METHOD(setOnHold:(NSString *)uuidString :(BOOL)shouldHold resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(setOnHold:(NSString *) uuidString:(BOOL)shouldHold resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
 #ifdef DEBUG
     NSLog(@"[RNCallKeep][setOnHold] uuidString = %@, shouldHold = %d", uuidString, shouldHold);

@@ -221,7 +221,7 @@ RCT_EXPORT_METHOD(endCall:(NSString *)uuidString resolver:(RCTPromiseResolveBloc
     [self requestTransaction:transaction resolver:resolve rejecter:reject];
 }
 
-RCT_EXPORT_METHOD(endAllCalls resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(endAllCalls, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
 #ifdef DEBUG
     NSLog(@"[RNCallKeep][endAllCalls] calls = %@", self.callKeepCallController.callObserver.calls);

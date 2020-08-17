@@ -400,10 +400,8 @@ RCT_EXPORT_METHOD(isCallActive:(NSString *)uuidString)
           localizedCallerName:(NSString * _Nullable)localizedCallerName
                   fromPushKit:(BOOL)fromPushKit
                       payload:(NSDictionary * _Nullable)payload
-                     resolver:(RCTPromiseResolveBlock)resolve
-                     rejecter:(RCTPromiseRejectBlock)reject
 {
-    [RNCallKeep reportNewIncomingCall:uuidString handle:handle handleType:handleType hasVideo:hasVideo localizedCallerName:localizedCallerName fromPushKit:fromPushKit payload:payload withCompletionHandler:nil resolver:resolve rejecter:reject];
+    [RNCallKeep reportNewIncomingCall:uuidString handle:handle handleType:handleType hasVideo:hasVideo localizedCallerName:localizedCallerName fromPushKit:fromPushKit payload:payload withCompletionHandler:nil resolver:nil rejecter:nil];
 }
 
 + (void)reportNewIncomingCall:(NSString *)uuidString
@@ -414,8 +412,20 @@ RCT_EXPORT_METHOD(isCallActive:(NSString *)uuidString)
                   fromPushKit:(BOOL)fromPushKit
                       payload:(NSDictionary * _Nullable)payload
         withCompletionHandler:(void (^_Nullable)(void))completion
-                     resolver:(RCTPromiseResolveBlock)resolve
-                     rejecter:(RCTPromiseRejectBlock)reject
+{
+    [RNCallKeep reportNewIncomingCall:uuidString handle:handle handleType:handleType hasVideo:hasVideo localizedCallerName:localizedCallerName fromPushKit:fromPushKit payload:payload withCompletionHandler:nil resolver:nil rejecter:nil];
+}
+
++ (void)reportNewIncomingCall:(NSString *)uuidString
+                       handle:(NSString *)handle
+                   handleType:(NSString *)handleType
+                     hasVideo:(BOOL)hasVideo
+          localizedCallerName:(NSString * _Nullable)localizedCallerName
+                  fromPushKit:(BOOL)fromPushKit
+                      payload:(NSDictionary * _Nullable)payload
+        withCompletionHandler:(void (^_Nullable)(void))completion
+                     resolver:(RCTPromiseResolveBlock _Nullable)resolve
+                     rejecter:(RCTPromiseRejectBlock _Nullable)reject
 {
 #ifdef DEBUG
     NSLog(@"[RNCallKeep][reportNewIncomingCall] uuidString = %@", uuidString);
@@ -448,11 +458,15 @@ RCT_EXPORT_METHOD(isCallActive:(NSString *)uuidString)
             if ([callKeep lessThanIos10_2]) {
                 [callKeep configureAudioSession];
             }
-            resolve(@TRUE);
+            if(resolve != nil) {
+                resolve(@TRUE);
+            }
         }
         if (completion != nil) {
             completion();
-            reject(@"reportNewIncomingCall", @"Error trying to display incoming call", error);
+            if(reject != nil) {
+                reject(@"reportNewIncomingCall", @"Error trying to display incoming call", error);
+            }
         }
     }];
 }

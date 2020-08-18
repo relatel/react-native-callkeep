@@ -233,7 +233,7 @@ RCT_EXPORT_METHOD(endAllCalls:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     }
 }
 
-RCT_EXPORT_METHOD(setOnHold:(NSString *) uuidString:(BOOL)shouldHold resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(setOnHold:(NSString *)uuidString:(BOOL)shouldHold resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
 #ifdef DEBUG
     NSLog(@"[RNCallKeep][setOnHold] uuidString = %@, shouldHold = %d", uuidString, shouldHold);
@@ -458,15 +458,15 @@ RCT_EXPORT_METHOD(isCallActive:(NSString *)uuidString)
             if ([callKeep lessThanIos10_2]) {
                 [callKeep configureAudioSession];
             }
-            if(resolve != nil) {
-                resolve(@TRUE);
-            }
         }
         if (completion != nil) {
             completion();
-            if(reject != nil) {
-                reject(@"reportNewIncomingCall", @"Error trying to display incoming call", error);
-            }
+        }
+
+        if(error != nil && reject != nil) {
+            reject(@"reportNewIncomingCall", @"Error trying to display incoming call", error);
+        } else if(error == nil && resolve != nil) {
+            resolve(@TRUE);
         }
     }];
 }

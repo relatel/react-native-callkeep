@@ -131,13 +131,9 @@ class RNCallKeep {
 
   isCallActive = async(uuid) => await RNCallKeepModule.isCallActive(uuid);
 
-  endCall = (uuid) => {
-    return RNCallKeepModule.endCall(uuid);
-  }
+  endCall = (uuid) => RNCallKeepModule.endCall(uuid);
 
-  endAllCalls = () => {
-    return RNCallKeepModule.endAllCalls();
-  }
+  endAllCalls = () => RNCallKeepModule.endAllCalls();
 
   supportConnectionService = () => supportConnectionService;
 
@@ -151,9 +147,7 @@ class RNCallKeep {
     return RNCallKeepModule.setMutedCall(uuid, shouldMute);
   };
 
-  sendDTMF = (uuid, key) => {
-    return RNCallKeepModule.sendDTMF(uuid, key);
-  }
+  sendDTMF = (uuid, key) => RNCallKeepModule.sendDTMF(uuid, key);
 
   checkIfBusy = () =>
     isIOS
@@ -184,9 +178,7 @@ class RNCallKeep {
 
   updateDisplay = (uuid, displayName, handle) => RNCallKeepModule.updateDisplay(uuid, displayName, handle);
 
-  setOnHold = (uuid, shouldHold) => {
-    return RNCallKeepModule.setOnHold(uuid, shouldHold);
-  }
+  setOnHold = (uuid, shouldHold) => RNCallKeepModule.setOnHold(uuid, shouldHold);
 
   setReachable = () => RNCallKeepModule.setReachable();
 

@@ -463,9 +463,9 @@ RCT_EXPORT_METHOD(isCallActive:(NSString *)uuidString)
             completion();
         }
 
-        if(error != nil && reject != nil) {
+        if (error != nil && reject != nil) {
             reject(@"reportNewIncomingCall", @"Error trying to display incoming call", error);
-        } else if(error == nil && resolve != nil) {
+        } else if (error == nil && resolve != nil) {
             resolve(@TRUE);
         }
     }];

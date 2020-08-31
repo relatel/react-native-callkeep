@@ -178,6 +178,8 @@ RNCallKeep.displayIncomingCall(uuid, handle, localizedCallerName);
   - `false` (default)
   - `true` (you know... when not false)
 
+Returns a promise on iOS.
+
 ### answerIncomingCall
 _This feature is available only on Android._
 
@@ -219,6 +221,7 @@ RNCallKeep.startCall(uuid, handle, contactIdentifier);
   - `false` (default)
   - `true` (you know... when not false)
 
+Returns a promise on iOS.
 
 ### updateDisplay
 Use this to update the display after an outgoing call has started.
@@ -233,6 +236,8 @@ RNCallKeep.updateDisplay(uuid, displayName, handle)
 - `handle`: string
   - Phone number of the caller
 
+Returns a promise on iOS.
+
 ### endCall
 
 When finish an incoming/outgoing call.  
@@ -245,6 +250,8 @@ RNCallKeep.endCall(uuid);
 - `uuid`: string
   - The `uuid` used for `startCall` or `displayIncomingCall`
 
+Returns a promise on iOS.
+
 ### endAllCalls
 
 End all ongoing calls.
@@ -252,6 +259,8 @@ End all ongoing calls.
 ```js
 RNCallKeep.endAllCalls();
 ```
+
+Returns a promise on iOS.
 
 ### rejectCall
 
@@ -263,6 +272,8 @@ RNCallKeep.rejectCall(uuid);
 
 - `uuid`: string
   - The `uuid` used for `startCall` or `displayIncomingCall`
+
+Returns a promise on iOS.
 
 ### reportEndCallWithUUID
 
@@ -303,6 +314,8 @@ RNCallKeep.setMutedCall(uuid, true);
   - uuid of the current call.
 - `muted`: boolean
 
+Returns a promise on iOS.
+
 ### setOnHold
 
 Set a call on/off hold.
@@ -314,6 +327,8 @@ RNCallKeep.setOnHold(uuid, true)
 - `uuid`: string
   - uuid of the current call.
 - `hold`: boolean
+
+Returns a promise on iOS.
 
 ### checkIfBusy
 

@@ -83,7 +83,7 @@ class RNCallKeep {
       return;
     }
 
-    RNCallKeepModule.displayIncomingCall(uuid, handle, handleType, hasVideo, localizedCallerName);
+    return RNCallKeepModule.displayIncomingCall(uuid, handle, handleType, hasVideo, localizedCallerName);
   };
 
   answerIncomingCall = (uuid) => {
@@ -98,7 +98,7 @@ class RNCallKeep {
       return;
     }
 
-    RNCallKeepModule.startCall(uuid, handle, contactIdentifier, handleType, hasVideo);
+    return RNCallKeepModule.startCall(uuid, handle, contactIdentifier, handleType, hasVideo);
   };
 
   reportConnectingOutgoingCallWithUUID = (uuid) => {
@@ -125,7 +125,7 @@ class RNCallKeep {
     if (!isIOS) {
       RNCallKeepModule.rejectCall(uuid);
     } else {
-      RNCallKeepModule.endCall(uuid);
+      return RNCallKeepModule.endCall(uuid);
     }
   };
 
@@ -143,9 +143,7 @@ class RNCallKeep {
   hasOutgoingCall = async () =>
     isIOS ? null : await RNCallKeepModule.hasOutgoingCall();
 
-  setMutedCall = (uuid, shouldMute) => {
-    RNCallKeepModule.setMutedCall(uuid, shouldMute);
-  };
+  setMutedCall = (uuid, shouldMute) => RNCallKeepModule.setMutedCall(uuid, shouldMute);
 
   sendDTMF = (uuid, key) => RNCallKeepModule.sendDTMF(uuid, key);
 

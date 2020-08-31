@@ -125,7 +125,7 @@ class RNCallKeep {
     if (!isIOS) {
       RNCallKeepModule.rejectCall(uuid);
     } else {
-      RNCallKeepModule.endCall(uuid);
+      return RNCallKeepModule.endCall(uuid);
     }
   };
 

@@ -471,18 +471,6 @@ RCT_EXPORT_METHOD(isCallActive:(NSString *)uuidString)
     }];
 }
 
-+ (void)reportNewIncomingCall:(NSString *)uuidString
-                       handle:(NSString *)handle
-                   handleType:(NSString *)handleType
-                     hasVideo:(BOOL)hasVideo
-          localizedCallerName:(NSString * _Nullable)localizedCallerName
-                  fromPushKit:(BOOL)fromPushKit
-                     resolver:(RCTPromiseResolveBlock)resolve
-                     rejecter:(RCTPromiseRejectBlock)reject
-{
-    [RNCallKeep reportNewIncomingCall: uuidString handle:handle handleType:handleType hasVideo:hasVideo localizedCallerName:localizedCallerName fromPushKit: fromPushKit payload:nil withCompletionHandler:nil resolver:resolve rejecter:reject];
-}
-
 - (BOOL)lessThanIos10_2
 {
     if (_version.majorVersion < 10) {

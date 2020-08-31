@@ -143,9 +143,7 @@ class RNCallKeep {
   hasOutgoingCall = async () =>
     isIOS ? null : await RNCallKeepModule.hasOutgoingCall();
 
-  setMutedCall = (uuid, shouldMute) => {
-    return RNCallKeepModule.setMutedCall(uuid, shouldMute);
-  };
+  setMutedCall = (uuid, shouldMute) => RNCallKeepModule.setMutedCall(uuid, shouldMute);
 
   sendDTMF = (uuid, key) => RNCallKeepModule.sendDTMF(uuid, key);
 

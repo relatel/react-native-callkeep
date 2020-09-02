@@ -413,7 +413,7 @@ RCT_EXPORT_METHOD(isCallActive:(NSString *)uuidString)
                       payload:(NSDictionary * _Nullable)payload
         withCompletionHandler:(void (^_Nullable)(void))completion
 {
-    [RNCallKeep reportNewIncomingCall:uuidString handle:handle handleType:handleType hasVideo:hasVideo localizedCallerName:localizedCallerName fromPushKit:fromPushKit payload:payload withCompletionHandler:nil resolver:nil rejecter:nil];
+    [RNCallKeep reportNewIncomingCall:uuidString handle:handle handleType:handleType hasVideo:hasVideo localizedCallerName:localizedCallerName fromPushKit:fromPushKit payload:payload withCompletionHandler:completion resolver:nil rejecter:nil];
 }
 
 + (void)reportNewIncomingCall:(NSString *)uuidString

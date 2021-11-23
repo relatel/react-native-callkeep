@@ -276,7 +276,9 @@ public class VoiceConnectionService extends ConnectionService {
             Log.d(TAG, "[VoiceConnectionService] Discarding stop foreground service, no service configured");
             return;
         }
-        stopForeground(FOREGROUND_SERVICE_TYPE_MICROPHONE);
+
+        stopForeground(true);
+        stopSelf();
     }
 
     private void wakeUpApplication(String uuid, String number, String displayName) {
@@ -336,19 +338,21 @@ public class VoiceConnectionService extends ConnectionService {
         Bundle extras = request.getExtras();
         HashMap<String, String> extrasMap = this.bundleToMap(extras);
 
-        String callerNumber = request.getAddress().toString();
-        Log.d(TAG, "[VoiceConnectionService] createConnection, callerNumber:" + callerNumber);
+        if (request.getAddress() != null) {
+            String callerNumber = request.getAddress().toString();
+            Log.d(TAG, "[VoiceConnectionService] createConnection, callerNumber:" + callerNumber);
 
-        if (callerNumber.contains(":")) {
-            //CallerNumber contains a schema which we'll separate out
-            int schemaIndex = callerNumber.indexOf(":");
-            String number = callerNumber.substring(schemaIndex + 1);
-            String schema = callerNumber.substring(0, schemaIndex);
+            if (callerNumber.contains(":")) {
+                //CallerNumber contains a schema which we'll separate out
+                int schemaIndex = callerNumber.indexOf(":");
+                String number = callerNumber.substring(schemaIndex + 1);
+                String schema = callerNumber.substring(0, schemaIndex);
 
-            extrasMap.put(EXTRA_CALL_NUMBER, number);
-            extrasMap.put(EXTRA_CALL_NUMBER_SCHEMA, schema);
-        } else {
-            extrasMap.put(EXTRA_CALL_NUMBER, callerNumber);
+                extrasMap.put(EXTRA_CALL_NUMBER, number);
+                extrasMap.put(EXTRA_CALL_NUMBER_SCHEMA, schema);
+            } else {
+                extrasMap.put(EXTRA_CALL_NUMBER, callerNumber);
+            }
         }
 
         VoiceConnection connection = new VoiceConnection(this, extrasMap);

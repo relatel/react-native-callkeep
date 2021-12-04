@@ -343,7 +343,7 @@ public class VoiceConnectionService extends ConnectionService {
             Log.d(TAG, "[VoiceConnectionService] createConnection, callerNumber:" + callerNumber);
 
             if (callerNumber.contains(":")) {
-                //CallerNumber contains a schema which we'll separate out
+                // CallerNumber contains a schema which we'll separate out
                 int schemaIndex = callerNumber.indexOf(":");
                 String number = callerNumber.substring(schemaIndex + 1);
                 String schema = callerNumber.substring(0, schemaIndex);

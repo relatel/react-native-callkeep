@@ -15,6 +15,8 @@ const RNCallKeepDidPerformDTMFAction = 'RNCallKeepDidPerformDTMFAction';
 const RNCallKeepProviderReset = 'RNCallKeepProviderReset';
 const RNCallKeepCheckReachability = 'RNCallKeepCheckReachability';
 const RNCallKeepDidLoadWithEvents = 'RNCallKeepDidLoadWithEvents';
+const RNCallKeepShowIncomingCallUi = 'RNCallKeepShowIncomingCallUi';
+const RNCallKeepOnSilenceIncomingCall = 'RNCallKeepOnSilenceIncomingCall';
 const isIOS = Platform.OS === 'ios';
 
 const didReceiveStartCallAction = handler => {
@@ -38,8 +40,17 @@ const didActivateAudioSession = handler =>
 const didDeactivateAudioSession = handler =>
   eventEmitter.addListener(RNCallKeepDidDeactivateAudioSession, handler);
 
-const didDisplayIncomingCall = handler =>
-  eventEmitter.addListener(RNCallKeepDidDisplayIncomingCall, (data) => handler(data));
+const didDisplayIncomingCall = handler => eventEmitter.addListener(RNCallKeepDidDisplayIncomingCall, data => {
+  // On Android the payload parameter is sent a String
+  // As it requires too much code on Android to convert it to WritableMap, let's do it here.
+  if (data.payload && typeof data.payload === 'string') {
+    try {
+      data.payload = JSON.parse(data.payload);
+    } catch (_) {
+    }
+  }
+  handler(data);
+});
 
 const didPerformSetMutedCallAction = handler =>
   eventEmitter.addListener(RNCallKeepDidPerformSetMutedCallAction, (data) => handler(data));
@@ -59,6 +70,12 @@ const checkReachability = handler =>
 const didLoadWithEvents = handler =>
   eventEmitter.addListener(RNCallKeepDidLoadWithEvents, handler);
 
+const showIncomingCallUi = handler =>
+  eventEmitter.addListener(RNCallKeepShowIncomingCallUi, (data) => handler(data));
+
+const silenceIncomingCall = handler =>
+  eventEmitter.addListener(RNCallKeepOnSilenceIncomingCall, (data) => handler(data));
+
 export const emit = (eventName, payload) => eventEmitter.emit(eventName, payload);
 
 export const listeners = {
@@ -74,4 +91,6 @@ export const listeners = {
   didResetProvider,
   checkReachability,
   didLoadWithEvents,
+  showIncomingCallUi,
+  silenceIncomingCall
 };

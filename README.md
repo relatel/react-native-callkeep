@@ -370,6 +370,8 @@ RNCallKeep.displayIncomingCall(uid, handle, localizedCallerName = '', handleType
     - `supportsUngrouping`: boolean (optional, default true)
   - `android`: object (currently no-op)
 
+Returns a promise on iOS.
+
 ### answerIncomingCall
 
 Use this to tell the sdk a user answered a call from the app UI.
@@ -410,6 +412,7 @@ RNCallKeep.startCall(uuid, handle, contactIdentifier);
   - `false` (default)
   - `true` (you know... when not false)
 
+Returns a promise on iOS.
 
 ### updateDisplay
 Use this to update the display after an outgoing call has started.
@@ -444,6 +447,8 @@ RNCallKeep.endCall(uuid);
 - `uuid`: string
   - The `uuid` used for `startCall` or `displayIncomingCall`
 
+Returns a promise on iOS.
+
 ### endAllCalls
 
 End all ongoing calls.
@@ -451,6 +456,7 @@ End all ongoing calls.
 ```js
 RNCallKeep.endAllCalls();
 ```
+Returns a promise on iOS.
 
 ### rejectCall
 
@@ -462,6 +468,8 @@ RNCallKeep.rejectCall(uuid);
 
 - `uuid`: string
   - The `uuid` used for `startCall` or `displayIncomingCall`
+
+Returns a promise on iOS.
 
 ### reportEndCallWithUUID
 
@@ -502,6 +510,8 @@ RNCallKeep.setMutedCall(uuid, true);
   - uuid of the current call.
 - `muted`: boolean
 
+Returns a promise on iOS.
+
 ### setOnHold
 
 Set a call on/off hold.
@@ -527,6 +537,8 @@ RNCallKeep.setConnectionState(uuid, state)
 - `uuid`: string
   - uuid of the current call.
 - `state`: [See Connection.STATE_*](https://developer.android.com/reference/android/telecom/Connection#STATE_ACTIVE) documentation
+
+Returns a promise on iOS.
 
 ### checkIfBusy
 

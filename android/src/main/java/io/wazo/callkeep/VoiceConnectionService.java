@@ -346,7 +346,9 @@ public class VoiceConnectionService extends ConnectionService {
             Log.d(TAG, "[VoiceConnectionService] Discarding stop foreground service, no service configured");
             return;
         }
-        stopForeground(FOREGROUND_SERVICE_TYPE_MICROPHONE);
+
+        stopForeground(true);
+        stopSelf();
     }
 
     private void wakeUpApplication(String uuid, String number, String displayName) {
@@ -413,7 +415,7 @@ public class VoiceConnectionService extends ConnectionService {
         Log.d(TAG, "[VoiceConnectionService] createConnection, callerNumber:" + callerNumber);
 
         if (callerNumber.contains(":")) {
-            //CallerNumber contains a schema which we'll separate out
+            // CallerNumber contains a schema which we'll separate out
             int schemaIndex = callerNumber.indexOf(":");
             String number = callerNumber.substring(schemaIndex + 1);
             String schema = callerNumber.substring(0, schemaIndex);

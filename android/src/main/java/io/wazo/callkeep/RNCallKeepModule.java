@@ -155,6 +155,10 @@ public class RNCallKeepModule extends ReactContextBaseJavaModule {
         this.reactContext = reactContext;
     }
 
+    public ReactApplicationContext getContext() {
+        return this.reactContext;
+    }
+
     public void reportNewIncomingCall(String uuid, String number, String callerName, boolean hasVideo, String payload) {
         Log.d(TAG, "[VoiceConnection] reportNewIncomingCall, uuid: " + uuid + ", number: " + number + ", callerName: " + callerName);
         // @TODO: handle video
@@ -864,15 +868,11 @@ public class RNCallKeepModule extends ReactContextBaseJavaModule {
     }
 
     private Boolean hasPermissions() {
-        Activity currentActivity = this.getCurrentActivity();
-
-        if (currentActivity == null) {
-            return false;
-        }
+        ReactApplicationContext context = getContext();
 
         boolean hasPermissions = true;
         for (String permission : permissions) {
-            int permissionCheck = ContextCompat.checkSelfPermission(currentActivity, permission);
+            int permissionCheck = ContextCompat.checkSelfPermission(context, permission);
             if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                 hasPermissions = false;
             }
@@ -881,9 +881,10 @@ public class RNCallKeepModule extends ReactContextBaseJavaModule {
         return hasPermissions;
     }
 
-    private static boolean hasPhoneAccount() {
-        return isConnectionServiceAvailable() && telecomManager != null
-            && telecomManager.getPhoneAccount(handle) != null && telecomManager.getPhoneAccount(handle).isEnabled();
+    private boolean hasPhoneAccount() {
+        return isConnectionServiceAvailable() && telecomManager != null &&
+             hasPermissions() && telecomManager.getPhoneAccount(handle) != null &&
+             telecomManager.getPhoneAccount(handle).isEnabled();
     }
 
     private void registerReceiver() {
